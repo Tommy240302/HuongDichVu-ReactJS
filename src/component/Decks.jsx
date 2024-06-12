@@ -1,10 +1,10 @@
 
 import { useRef, useState, useEffect } from 'react'
-import { fetchData } from '../global'
+import { fetchData, showToastError, showToastMessage } from '../global'
+import { ToastContainer } from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom'
 import DeleteDeck from './DeleteDeck'
-import Success from './Success'
-import Fail from './Fail'
+
 import ModalCreateDeck from './ModalCreateDeck'
 import ModalEditDeck from './ModalEditDeck'
 import Modal from "react-modal"
@@ -17,8 +17,6 @@ function Decks() {
     const navigate = useNavigate()
 
     const [decks, setDecks] = useState()
-    const refSuccess = useRef()
-    const refFail = useRef()
     const refModalCreateDeck = useRef()
     const refModalEditDeck = useRef()
     const [idDeckDelete, setIdDeckDelete] = useState(null)
@@ -60,10 +58,11 @@ function Decks() {
         try {
             await fetchData(subUrl, 'DELETE')
             await getDecks()
-            refSuccess.current.show('Xóa bộ thẻ thành công', 2000)
+            showToastMessage("Xóa bộ thẻ thành công")
+            
         }
         catch (error) {
-            failRef.current.show('Đã có lỗi xảy ra!', 2000)
+            showToastError(error.message)
         }
         handleCancel()
         setIdDeckDelete(null)
@@ -208,8 +207,6 @@ function Decks() {
             </div>
         }
         <DeleteDeck idDeckDelete={idDeckDelete} handleCancle={handleCancel} handleDeleteDeck={handleDeleteDeck} />
-        <Success ref={refSuccess} />
-        <Fail ref={refFail} />
 
         <Modal
         isOpen={isShowModalStudy}
@@ -220,6 +217,7 @@ function Decks() {
         <p className='text-center'>Bạn chưa có thẻ nào trong bộ thẻ, <Link to={'/cards'} className='text-blue-700 underline'>Tạo bộ thẻ</Link>
         </p>
       </Modal>
+      <ToastContainer/>
     </div>
 }
 

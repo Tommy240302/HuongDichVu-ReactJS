@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from 'react'
 import { fetchData, convertValueFromSelect } from '../global'
 import Success from './Success'
 import Fail from './Fail'
-import ModelCreateCard from './ModelCreateCard'
+import ModalCreateCard from './ModalCreateCard'
 import ModelEditCard from './ModelEditCard'
 
 export default function Cards() {
@@ -24,7 +24,7 @@ export default function Cards() {
     const [decks, setDecks] = useState()
     const refSuccess = useRef()
     const refFail = useRef()
-    const refModelCreateCard = useRef()
+    const refModalCreateCard = useRef()
     const refModelEditCard = useRef()
     const [searchContent, setSearchContent] = useState('')
     const [showFilterDeck, setShowFilterDeck] = useState()
@@ -47,8 +47,8 @@ export default function Cards() {
     }
 
 
-    async function handleShowModelCreateCard() {
-        refModelCreateCard.current.show()
+    async function handleShowModalCreateCard() {
+        refModalCreateCard.current.show()
     }
 
 
@@ -209,7 +209,7 @@ export default function Cards() {
     }
 
     return <div>
-        <ModelCreateCard decks={decks} getCards={getCards} ref={refModelCreateCard} />
+        <ModalCreateCard decks={decks} getCards={getCards} ref={refModalCreateCard} />
         <ModelEditCard decks={decks} getCards={getCards} ref={refModelEditCard} />
         <div className='flex justify-between mt-10'>
 
@@ -219,7 +219,7 @@ export default function Cards() {
                     <button onClick={handleDeleteCards}>
                         <img src="delete.png" className='w-9' alt="" />
                     </button>
-                    <button onClick={handleShowModelCreateCard} className=''>
+                    <button onClick={handleShowModalCreateCard} className=''>
                         <img src="plus.png" className='w-9' alt="" />
                     </button>
 

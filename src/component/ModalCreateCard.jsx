@@ -1,14 +1,12 @@
 import React, { useState } from "react"
 import { baseUrl } from "../global"
 
-const ModelCreateCard = React.forwardRef(({ decks, getCards }, ref) => {
+const ModalCreateCard = React.forwardRef(({ decks, getCards }, ref) => {
 
     const [isShow, setIsShow] = useState(false)
     const [message, setMessage] = useState()
     const [messageCss, setMessageCss] = useState()
-
-
-    // kích hoạt model lên. 
+    
     function show() {
         setIsShow(true)
     }
@@ -135,4 +133,4 @@ const ModelCreateCard = React.forwardRef(({ decks, getCards }, ref) => {
     </div>)
 })
 
-export default ModelCreateCard
+export default ModalCreateCard

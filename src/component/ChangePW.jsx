@@ -1,4 +1,33 @@
+import { useState } from "react"
+import { fetchData, showToastError, showToastMessage } from "../global"
+import { ToastContainer } from "react-toastify"
+
 export default function ChangePW() {
+
+
+  const [newPW, setNewPW] = useState()
+  const [confirmPw, setComfirmPW] = useState()
+  
+  async function handleChangePW(event) {
+    event.preventDefault()
+    if (newPW != confirmPw) {
+      showToastError("Mật khẩu và mật khẩu xác nhận không chính xác")
+      return 
+    }
+    else { 
+      try {
+        const subUrl = '/users/password'
+        const {message} = await fetchData(subUrl, 'PUT', {newPassword: newPW})
+        showToastMessage(message)
+      }
+      catch(error) { 
+        showToastError(error.message)
+      }
+    }
+    
+    
+  }
+
   return <section className="">
   <div className="flex flex-col items-center px-6 py-8 mx-auto lg:py-0">
    
@@ -6,7 +35,7 @@ export default function ChangePW() {
       <h2 className="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
         Change Password
       </h2>
-      <form className="mt-4 space-y-4 lg:mt-5 md:space-y-5" action="#">
+      <form onSubmit={handleChangePW} className="mt-4 space-y-4 lg:mt-5 md:space-y-5" action="#">
        
         <div>
           <label
@@ -16,6 +45,7 @@ export default function ChangePW() {
             New Password
           </label>
           <input
+            onChange={event => setNewPW(event.target.value)}
             type="password"
             name="password"
             id="password"
@@ -32,7 +62,8 @@ export default function ChangePW() {
             Confirm password
           </label>
           <input
-            type="confirm-password"
+          onChange={event => setComfirmPW(event.target.value)}
+            type="password"
             name="confirm-password"
             id="confirm-password"
             placeholder="••••••••"
@@ -53,6 +84,7 @@ export default function ChangePW() {
       </form>
     </div>
   </div>
+  <ToastContainer/>
 </section>
 
 }

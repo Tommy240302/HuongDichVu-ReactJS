@@ -64,7 +64,7 @@ function Navbar() {
           <div className='dropdown'>
             <div className='h-2'></div>
             <div className='dropdown-btn h-9 w-9 rounded-full overflow-hidden cursor-pointer'>
-              <img src='/avatar.avif' className='w-full h-full' alt='' />
+              <img src={auth.avatar} loading="lazy" className='w-full h-full' alt='' />
             </div>
             <div className='h-2'></div>
             <div className='dropdown-content-left'>
@@ -102,7 +102,6 @@ function Navbar() {
         <li className='hover:cursor-pointer font-medium'>
           <Link className={location.pathname === '/contact' ? 'link-active-mobile' : ''} to={'/contact'} >Liên hệ</Link>
         </li>
-
         </ul>
       </div>
     </nav>
